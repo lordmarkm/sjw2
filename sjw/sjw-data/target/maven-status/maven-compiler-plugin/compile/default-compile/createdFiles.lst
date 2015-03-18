@@ -1,0 +1,5 @@
+org/sjw/data/model/Taxi.class
+org/sjw/data/config/SjwDataConfig.class
+org/sjw/data/model/Address.class
+org/sjw/data/model/Employee.class
+org/sjw/data/model/Report.class

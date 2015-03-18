@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.sjw</groupId>
+  <artifactId>sjw</artifactId>
+  <version>1.0</version>
+  <packaging>pom</packaging>
+  <name>SJW :: Parent</name>
+  <modules>
+    <module>sjw-data</module>
+    <module>sjw-marklogic</module>
+    <module>sjw-app</module>
+    <module>sjw-web</module>
+  </modules>
+
+  <properties>
+    <project.version>1.0</project.version>
+    <commons-io.version>2.4</commons-io.version>
+    <spring.version>4.1.5.RELEASE</spring.version>
+    <guava.version>18.0</guava.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.sjw</groupId>
+        <artifactId>sjw-data</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.sjw</groupId>
+        <artifactId>sjw-marklogic</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+</project>
