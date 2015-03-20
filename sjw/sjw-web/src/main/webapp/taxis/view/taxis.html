@@ -1,16 +1,19 @@
 <h1>Taxis</h1>
 
 <div class="row">
-  <form name="taxiSearchForm" ng-submit="tableParams.page() === 1 ? tableParams.reload() : tableParams.page(1);">
-    <div class="col-sm-4">
-      <input type="text" class="form-control" ng-model="query" placeholder="Search term, or leave blank for *"/>
-    </div>
-    <button class="btn btn-default">Search</button>
-    <button class="btn btn-default" ng-click="query = ''">Clear search term</button>
-    </form>
+<div class="col-sm-12">
+<form name="taxiSearchForm" ng-submit="tableParams.page() === 1 ? tableParams.reload() : tableParams.page(1);">
+  <div class="col-sm-4">
+    <input type="text" class="form-control" ng-model="query" placeholder="Search term, or leave blank for *"/>
+  </div>
+  <button class="btn btn-default">Search</button>
+  <button class="btn btn-default" ng-click="query = ''">Clear search term</button>
+</form>
+</div>
 </div>
 
 <div class="row">
+<div class="col-sm-12">
 <table ng-table="tableParams" class="table table-striped" >
   <thead>
     <tr>
@@ -39,5 +42,4 @@
   </tbody>
 </table>
 </div>
-
-{{taxis}}
+</div>
