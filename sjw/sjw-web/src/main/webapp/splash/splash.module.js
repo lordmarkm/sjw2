@@ -8,8 +8,7 @@ define(
       angular.module('splash.module', [])
         .constant('config', {
           marklogic: {
-            host: 'localhost',
-            port: '8003'
+            proxyPath: 'marklogic'
           }
         })
         .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {

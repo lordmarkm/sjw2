@@ -2,6 +2,26 @@
 <web-app>
   <display-name>SJW</display-name>
 
+  <!-- This servlet will redirect requests to MarkLogic server -->
+  <servlet>
+    <servlet-name>MarkLogicProxy</servlet-name>
+    <servlet-class>org.eclipse.jetty.proxy.ProxyServlet$Transparent</servlet-class>
+    <load-on-startup>1</load-on-startup>
+    <async-supported>true</async-supported>
+    <init-param>
+      <param-name>proxyTo</param-name>
+      <param-value>http://localhost:8003</param-value>
+    </init-param>
+    <init-param>
+      <param-name>prefix</param-name>
+      <param-value>/marklogic</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MarkLogicProxy</servlet-name>
+    <url-pattern>/marklogic/*</url-pattern>
+  </servlet-mapping>
+
   <!-- This is a servlet for .xql files -->
   <servlet>
     <servlet-name>KawaPageServlet</servlet-name>

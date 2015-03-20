@@ -1,2 +1,43 @@
-<div>Controller name = {{controllerName}}</div>
-<div>Here we will show all of the taxis</div>
+<h1>Taxis</h1>
+
+<div class="row">
+  <form name="taxiSearchForm" ng-submit="tableParams.page() === 1 ? tableParams.reload() : tableParams.page(1);">
+    <div class="col-sm-4">
+      <input type="text" class="form-control" ng-model="query" placeholder="Search term, or leave blank for *"/>
+    </div>
+    <button class="btn btn-default">Search</button>
+    <button class="btn btn-default" ng-click="query = ''">Clear search term</button>
+    </form>
+</div>
+
+<div class="row">
+<table ng-table="tableParams" class="table table-striped" >
+  <thead>
+    <tr>
+      <th>Index
+      <th>Description
+      <th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="taxi in $data">
+      <td>{{taxi.index}}
+      <td>
+        <div ng-repeat="match in taxi.matches">
+          <span ng-repeat="matchtext in match['match-text']">
+            <strong ng-if="matchtext.highlight">{{matchtext.highlight}}</strong>
+            <span ng-if="!matchtext.highlight">{{matchtext}}</span>
+          </span>
+          <br/><small class="muted">{{match.path}}</small>
+        </div>
+      </td>
+      <td>
+        <a href="javascript:;" ng-click="viewTaxi(taxi.uri)">View taxi</a>
+        <a href="marklogic{{taxi.href}}">View data</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+{{taxis}}

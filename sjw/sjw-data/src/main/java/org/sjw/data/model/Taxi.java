@@ -6,11 +6,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Taxi {
 
-    @XmlAttribute
     private String plateNo;
     private String operator;
-    //private Employee driver;
 
+    @XmlAttribute
     public String getPlateNo() {
         return plateNo;
     }
@@ -23,11 +22,5 @@ public class Taxi {
     public void setOperator(String operator) {
         this.operator = operator;
     }
-//    public Employee getDriver() {
-//        return driver;
-//    }
-//    public void setDriver(Employee driver) {
-//        this.driver = driver;
-//    }
 
 }

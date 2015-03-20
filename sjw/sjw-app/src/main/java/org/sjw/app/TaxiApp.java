@@ -21,13 +21,13 @@ public class TaxiApp {
         XMLWriter xmlWriter = ctx.getBean(XMLWriter.class);
         JSONWriter jsonWriter = ctx.getBean(JSONWriter.class);
 
-        int count = 1;
-        while (count++ < 100) {
+        int count = 105;
+        while (count++ < 155) {
             Taxi taxi = new Taxi();
-            taxi.setOperator("Love Taxi");
+            taxi.setOperator("Jason Taxi");
             taxi.setPlateNo(RandomStringUtils.randomAlphabetic(3).toUpperCase() + RandomStringUtils.randomNumeric(3));
 
-            //xmlWriter.writeObjectAsXml("employees/employee" + count, employee, "Employees");
+//            xmlWriter.writeObjectAsXml("taxis/taxi" + count, taxi, "Taxis");
             jsonWriter.writeObjectAsJson("taxis/taxi" + count, taxi);
         }
     }

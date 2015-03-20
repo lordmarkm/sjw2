@@ -2,7 +2,7 @@
     <wb-module deploy-name="sjw-web">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-        <property name="context-root" value="sjw-web"/>
         <property name="java-output-path" value="/sjw-web/target/classes"/>
+        <property name="context-root" value="sjw"/>
     </wb-module>
 </project-modules>
