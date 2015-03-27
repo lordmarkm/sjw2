@@ -24,6 +24,12 @@ public class XMLWriter {
     @Autowired
     private XMLDocumentManager docMgr;
 
+    public String previewObjectAsXml(Object data) {
+        StringWriter stringWriter = new StringWriter();
+        JAXB.marshal(data, stringWriter);
+        return stringWriter.toString();
+    }
+
     public void writeObjectAsXml(String docId, Object data) throws IOException {
         writeObjectAsXml(docId, data, (String[]) null);
     }
@@ -39,7 +45,7 @@ public class XMLWriter {
     }
 
     public void writeXml(String docId, String data, String... collections) throws IOException {
-        LOG.debug("Writing data to db. docId={}, data={}, collections={}", docId, data, collections);
+        //LOG.debug("Writing data to db. docId={}, data={}, collections={}", docId, data, collections);
 
         //Acquire the content
         InputStream docStream = IOUtils.toInputStream(data, "UTF-8");

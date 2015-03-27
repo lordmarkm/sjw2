@@ -8,6 +8,15 @@ public class Address {
     private int zip;
     private String addressLine1;
     private String addressLine2;
+
+    public Address(){}
+    public Address(String city, int zip, String line1, String line2) {
+        this.city = city;
+        this.zip = zip;
+        this.addressLine1 = line1;
+        this.addressLine2 = line2;
+    }
+
     public String getCity() {
         return city;
     }
