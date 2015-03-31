@@ -38,7 +38,6 @@ public class MenuItem {
         MenuItem m1 = new MenuItem("Fried Chicken", 87d);
         MenuItem m2 = new MenuItem("Steak", 145.5d);
         MenuItem m3 = new MenuItem("Pancit Lucban", 125d);
-        MenuItem m4 = new MenuItem("Plain Rice", 40d);
         MenuItem m5 = new MenuItem("Lumpiang Shanghai", 50d);
         MenuItem m6 = new MenuItem("Cheese Cake", 45.5d);
         MenuItem m7 = new MenuItem("Fried Tilapia", 80d);
@@ -54,8 +53,9 @@ public class MenuItem {
         MenuItem m17 = new MenuItem("Spaghetti Bolognese", 90d);
         MenuItem m18 = new MenuItem("Sinigang", 150d);
         MenuItem m19 = new MenuItem("Pork Barbecue", 200d);
-        menuItems = Lists.newArrayList(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19);
+        menuItems = Lists.newArrayList(m1, m2, m3, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19);
     }
+
     public static Set<MenuItem> random(int count) {
         if (count > menuItems.size()) {
             throw new IllegalArgumentException("We don't have enough dish variety!");
@@ -65,6 +65,11 @@ public class MenuItem {
             items.add(menuItems.get(rngsus.nextInt(menuItems.size() - 1)));
         }
         return items;
+    }
+
+    public static MenuItem getRice() {
+        MenuItem m4 = new MenuItem("Plain Rice", 40d);
+        return m4;
     }
 
     @Override

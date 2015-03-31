@@ -8,6 +8,8 @@ public class Address {
     private int zip;
     private String addressLine1;
     private String addressLine2;
+    private String latitude;
+    private String longitude;
 
     public Address(){}
     public Address(String city, int zip, String line1, String line2) {
@@ -40,6 +42,20 @@ public class Address {
     }
     public void setAddressLine2(String addressLine2) {
         this.addressLine2 = addressLine2;
+    }
+    public String getLatitude() {
+        return latitude;
+    }
+    public Address setLatitude(String latitude) {
+        this.latitude = latitude;
+        return this;
+    }
+    public String getLongitude() {
+        return longitude;
+    }
+    public Address setLongitude(String longitude) {
+        this.longitude = longitude;
+        return this;
     }
      
 }

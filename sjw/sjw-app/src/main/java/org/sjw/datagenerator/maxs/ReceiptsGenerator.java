@@ -87,7 +87,7 @@ public class ReceiptsGenerator {
 
     private static final List<RestaurantBranch> branches = RestaurantBranchApp.getBranches();
     private static String getRandomRestaurantCode() {
-        return branches.get(rngsus.nextInt(branches.size() - 1)).getCode();
+        return branches.get(rngsus.nextInt(branches.size())).getCode();
     }
 
     private static long orderId = 0l;
@@ -116,6 +116,12 @@ public class ReceiptsGenerator {
             oi.setReceiptNo(receiptNo);
             orderItems.add(oi);
         }
+
+        OrderItem rice = new OrderItem(MenuItem.getRice(), Double.valueOf(orderItems.size()));
+        rice.setOrderId(++orderId);
+        rice.setReceiptNo(receiptNo);
+        orderItems.add(rice);
+
         return orderItems;
     }
 }
