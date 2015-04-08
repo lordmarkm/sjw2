@@ -1,10 +1,15 @@
-package org.sjw.data.model.maxs;
+package org.sjw.data.model.restaurant;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import org.sjw.reference.Weather;
+
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 
@@ -34,6 +39,7 @@ public class MenuItem {
 
     private static Random rngsus = new Random();
     private static List<MenuItem> menuItems;
+    private static Map<Weather, List<MenuItem>> weightedLists = Maps.newHashMap();
     static {
         MenuItem m1 = new MenuItem("Fried Chicken", 87d);
         MenuItem m2 = new MenuItem("Steak", 145.5d);
@@ -56,13 +62,38 @@ public class MenuItem {
         menuItems = Lists.newArrayList(m1, m2, m3, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19);
     }
 
-    public static Set<MenuItem> random(int count) {
+    public static Set<MenuItem> random(int count, Weather weather) {
         if (count > menuItems.size()) {
             throw new IllegalArgumentException("We don't have enough dish variety!");
         }
         Set<MenuItem> items = Sets.newHashSet();
+        List<MenuItem> weightedList = weightedLists.get(weather);
+        if (null == weightedList) {
+            weightedList = new ArrayList<>(menuItems);
+            switch (weather) {
+            case Cold:
+            case Rainy:
+            case Windy:
+            case Typhoon:
+                weightedList.add(new MenuItem("Arroz Caldo", 50d));
+                weightedList.add(new MenuItem("Arroz Caldo", 50d));
+                weightedList.add(new MenuItem("Spicy Pork", 85d));
+                weightedList.add(new MenuItem("Sinigang", 150d));
+                break;
+            case Hot:
+                weightedList.add(new MenuItem("1 Liter of Coke", 42d));
+                weightedList.add(new MenuItem("Pitcher of Iced tea", 150d));
+                weightedList.add(new MenuItem("Pitcher of Lemonade", 150d));
+                weightedList.add(new MenuItem("1 Liter of Coke", 42d));
+                weightedList.add(new MenuItem("Pitcher of Iced tea", 150d));
+                weightedList.add(new MenuItem("Pitcher of Lemonade", 150d));
+                weightedList.add(new MenuItem("Ice cream", 50d));
+                weightedList.add(new MenuItem("Ice cream", 50d));
+                break;
+            }
+        }
         while (items.size() < count) {
-            items.add(menuItems.get(rngsus.nextInt(menuItems.size() - 1)));
+            items.add(weightedList.get(rngsus.nextInt(weightedList.size() - 1)));
         }
         return items;
     }

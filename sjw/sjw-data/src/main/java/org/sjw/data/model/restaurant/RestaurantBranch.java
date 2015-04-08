@@ -1,4 +1,4 @@
-package org.sjw.data.model.maxs;
+package org.sjw.data.model.restaurant;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;

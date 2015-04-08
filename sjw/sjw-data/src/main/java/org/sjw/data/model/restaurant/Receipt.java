@@ -1,4 +1,4 @@
-package org.sjw.data.model.maxs;
+package org.sjw.data.model.restaurant;
 
 import java.util.Date;
 import java.util.List;
@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.sjw.reference.Weather;
+
 @XmlRootElement
 @XmlAccessorType (XmlAccessType.FIELD)
 public class Receipt {
@@ -16,6 +18,10 @@ public class Receipt {
     private Long id;
     private String restaurantCode;
     private Date orderDate;
+
+    //Some (f)aux data
+    private Weather weather;
+    private Double seniorDiscount = 0d;
 
     @XmlElementWrapper(name = "orders")
     @XmlElement(name = "order", namespace = "http://www.example.org/order")
@@ -44,6 +50,18 @@ public class Receipt {
     }
     public void setId(Long id) {
         this.id = id;
+    }
+    public Weather getWeather() {
+        return weather;
+    }
+    public void setWeather(Weather weather) {
+        this.weather = weather;
+    }
+    public Double getSeniorDiscount() {
+        return seniorDiscount;
+    }
+    public void setSeniorDiscount(Double seniorDiscount) {
+        this.seniorDiscount = seniorDiscount;
     }
 
 }

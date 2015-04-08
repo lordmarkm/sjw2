@@ -1,6 +1,8 @@
-package org.sjw.datagenerator.maxs;
+package org.sjw.datagenerator.restaurant;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -9,12 +11,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.Days;
 import org.joda.time.LocalDateTime;
 import org.sjw.data.config.SjwDataConfig;
-import org.sjw.data.model.maxs.MenuItem;
-import org.sjw.data.model.maxs.OrderItem;
-import org.sjw.data.model.maxs.Receipt;
-import org.sjw.data.model.maxs.RestaurantBranch;
+import org.sjw.data.model.restaurant.MenuItem;
+import org.sjw.data.model.restaurant.OrderItem;
+import org.sjw.data.model.restaurant.Receipt;
+import org.sjw.data.model.restaurant.RestaurantBranch;
 import org.sjw.marklogic.client.XMLWriter;
 import org.sjw.marklogic.config.SjwMarklogicConfig;
+import org.sjw.reference.Weather;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -33,6 +36,7 @@ public class ReceiptsGenerator {
     private static Random rngsus = new Random();
 
     public static void main(String[] args) throws IOException {
+
         ApplicationContext ctx = new AnnotationConfigApplicationContext(
                 SjwMarklogicConfig.class,
                 SjwDataConfig.class);
@@ -44,15 +48,28 @@ public class ReceiptsGenerator {
         LocalDateTime endDate = LocalDateTime.parse("2015-12-31");
 
         LocalDateTime date = startDate;
-        int maxDayCount = rngsus.nextInt(7) + 4; //4-10 receipts per day
+        int maxDayCount = rngsus.nextInt(7) + 9; //4-10 receipts per day
         int dayCount = 0;
+        Weather weather = null;
         List<Receipt> receipts = Lists.newArrayList();
         while (!date.equals(endDate) || dayCount != maxDayCount) {
+
+            if (0 == dayCount) {
+                weather = Weather.random(date.getMonthOfYear());
+                if (weather == Weather.Typhoon) {
+                    maxDayCount -= 3;
+                } else if (weather == Weather.Rainy || weather == Weather.Cold) {
+                    maxDayCount -= 1;
+                }
+            }
+
             Receipt receipt = new Receipt();
             receipt.setId(id++);
             receipt.setOrderDate(date.plusHours(rngsus.nextInt(8) + 10).plusMinutes(rngsus.nextInt(60)).toDate());
-            receipt.setOrderItems(getRandomOrderItems(String.valueOf(receipt.getId()), receipt.getOrderDate().getHours(), date.getMonthOfYear()));
+            receipt.setWeather(weather);
+            receipt.setOrderItems(getRandomOrderItems(String.valueOf(receipt.getId()), receipt.getOrderDate().getHours(), date.getMonthOfYear(), receipt.getWeather()));
             receipt.setRestaurantCode(getRandomRestaurantCode());
+            applySeniorDiscount(receipt);
             receipts.add(receipt);
 
             if (dayCount == maxDayCount) {
@@ -85,14 +102,28 @@ public class ReceiptsGenerator {
         }
     }
 
+    private static void applySeniorDiscount(Receipt receipt) {
+        boolean isSenior = rngsus.nextInt(5) == 4;
+        if (!isSenior) {
+            return;
+        }
+
+        Double totalAmount = 0d;
+        for (OrderItem orderItem : receipt.getOrderItems()) {
+            totalAmount += orderItem.getItem().getPrice() * orderItem.getQuantity();
+        }
+
+        receipt.setSeniorDiscount(new BigDecimal(totalAmount * 0.2d).setScale(2, RoundingMode.HALF_UP).doubleValue());
+    }
+
     private static final List<RestaurantBranch> branches = RestaurantBranchApp.getBranches();
     private static String getRandomRestaurantCode() {
         return branches.get(rngsus.nextInt(branches.size())).getCode();
     }
 
     private static long orderId = 0l;
-    private static List<OrderItem> getRandomOrderItems(String receiptNo, int hourOfDay, int monthOfYear) {
-        
+    private static List<OrderItem> getRandomOrderItems(String receiptNo, int hourOfDay, int monthOfYear, Weather weather) {
+
         //if it's 11 am to 1 pm people order 4-8 dishes
         int dishCount;
         switch(hourOfDay) {
@@ -108,7 +139,7 @@ public class ReceiptsGenerator {
             dishCount = (int)(dishCount * 1.5);
         }
 
-        Set<MenuItem> menuItems = MenuItem.random(dishCount);
+        Set<MenuItem> menuItems = MenuItem.random(dishCount, weather);
         List<OrderItem> orderItems = Lists.newArrayList();
         for (MenuItem menuItem : menuItems) {
             OrderItem oi = new OrderItem(menuItem, Double.valueOf(rngsus.nextInt(4) + 1)); //1-4 orders per dish
