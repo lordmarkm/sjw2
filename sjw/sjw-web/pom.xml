@@ -12,6 +12,16 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.sjw</groupId>
+      <artifactId>sjw-tableau</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>baldy.commons</groupId>
+      <artifactId>baldy-commons-web</artifactId>
+      <version>3.1</version>
+    </dependency>
+    <dependency>
       <groupId>kawa</groupId>
       <artifactId>kawa</artifactId>
       <version>1.7</version>
@@ -37,6 +47,22 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.5</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-joda</artifactId>
+      <version>2.3.3</version>
     </dependency>
   </dependencies>
 

@@ -2,10 +2,52 @@
 <web-app>
   <display-name>SJW</display-name>
 
+  <!-- Java-based Spring container definition -->
+  <context-param>
+    <param-name>contextClass</param-name>
+    <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+    </param-value>
+  </context-param>
+
+  <!-- Location of Java @Configuration classes that configure the components 
+    that makeup this application -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>com.sjw.web.config</param-value>
+  </context-param>
+
+  <!-- Creates the Spring Container shared by all Servlets and Filters -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener
+    </listener-class>
+  </listener>
+
+  <!-- Processes application requests -->
+  <servlet>
+    <servlet-name>appServlet</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet
+    </servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value></param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>appServlet</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+
   <!-- This servlet will redirect requests to MarkLogic server -->
   <servlet>
     <servlet-name>MarkLogicProxy</servlet-name>
-    <servlet-class>org.eclipse.jetty.proxy.ProxyServlet$Transparent</servlet-class>
+    <servlet-class>org.eclipse.jetty.proxy.ProxyServlet$Transparent
+    </servlet-class>
     <load-on-startup>1</load-on-startup>
     <async-supported>true</async-supported>
     <init-param>

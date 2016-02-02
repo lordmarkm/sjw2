@@ -1,15 +1,16 @@
 require.config({
   paths: {
-    'angular': 'lib/angular/angular',
-    'angular-animate': 'lib/angular-animate/angular-animate.min',
+    'angular': 'https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min',
+    'angular-animate': 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular-animate.min',
     'angular-ui-router': 'lib/angular-ui-router/release/angular-ui-router',
-    'angular-resource': 'lib/angular-resource/angular-resource.min',
+    'angular-resource': 'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular-resource.min',
     'angular-ngtable': 'lib/ng-table/dist/ng-table.min',
     'toaster': 'lib/angularjs-toaster/toaster',
     'bootstrap': 'lib/bootstrap/dist/js/bootstrap',
     'x2js': 'lib/x2js/xml2json.min',
     'angular-x2js': 'lib/angular-x2js/dist/x2js.min',
-    'jquery': 'lib/jquery/jquery'
+    'jquery': 'lib/jquery/jquery',
+    'tab': 'http://192.168.242.49/javascripts/api/tableau-2.0.0'
   },
   shim: {
     'angular': {
@@ -46,8 +47,10 @@ require([
     'angular-ui-router',
     'bootstrap',
     'angular-x2js',
+    'tab',
     'splash/splash.module.js',
-    'taxis/taxis.module.js'
+    'taxis/taxis.module.js',
+    'tableau/tableau.module.js'
   ], function (angular) {
   angular.element().ready(function () {
     angular.bootstrap(document, [
@@ -58,7 +61,8 @@ require([
       'toaster',
       'cb.x2js',
       'splash.module',
-      'taxis.module'
+      'taxis.module',
+      'tableau.module'
     ]);
   });
 });
