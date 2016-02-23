@@ -1,6 +1,9 @@
 package org.sjw.marklogic.config;
 
+import javax.xml.bind.JAXBException;
+
 import org.codehaus.jackson.map.ObjectMapper;
+import org.sjw.marklogic.client.Taxi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import com.marklogic.client.DatabaseClientFactory;
 import com.marklogic.client.DatabaseClientFactory.Authentication;
 import com.marklogic.client.document.JSONDocumentManager;
 import com.marklogic.client.document.XMLDocumentManager;
+import com.marklogic.client.io.JAXBHandle;
 
 @Configuration
 @PropertySource("db.properties")
@@ -29,6 +33,14 @@ public class SjwMarklogicConfig {
     @Bean
     public DatabaseClient databaseClient() {
         LOG.debug("Creating database client.");
+        try {
+            DatabaseClientFactory.getHandleRegistry().register(
+                JAXBHandle.newFactory(Taxi.class)
+            );
+        } catch (JAXBException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return DatabaseClientFactory.newClient(
                 env.getProperty("db.host"),
                 env.getProperty("db.port", Integer.class),

@@ -1,7 +1,9 @@
-package org.sjw.data.model;
+package org.sjw.marklogic.client;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.springframework.core.style.ToStringCreator;
 
 @XmlRootElement
 public class Taxi {
@@ -9,6 +11,13 @@ public class Taxi {
     private String plateNo;
     private String operator;
 
+    @Override
+    public String toString() {
+        return new ToStringCreator(this)
+                .append("Plate no", plateNo)
+                .append("operator", operator)
+                .toString();
+    }
     @XmlAttribute
     public String getPlateNo() {
         return plateNo;

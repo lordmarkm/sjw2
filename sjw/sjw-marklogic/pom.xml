@@ -11,8 +11,8 @@
   <dependencies>
     <dependency>
       <groupId>com.marklogic</groupId>
-      <artifactId>client-api-java</artifactId>
-      <version>1.0-1</version>
+      <artifactId>java-client-api</artifactId>
+      <version>3.0.1</version>
       <exclusions>
         <exclusion>
           <groupId>org.slf4j</groupId>
@@ -46,6 +46,7 @@
       <version>1.9.13</version>
     </dependency>
   </dependencies>
+  <!-- Removed this when we switched to java-client-api 3
   <repositories>
     <repository>
       <id>dmc</id>
@@ -53,6 +54,7 @@
       <url>http://developer.marklogic.com/maven2/</url>
     </repository>
   </repositories>
+  -->
 
   <build>
     <plugins>

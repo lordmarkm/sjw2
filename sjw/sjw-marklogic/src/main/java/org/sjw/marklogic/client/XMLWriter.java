@@ -35,6 +35,7 @@ public class XMLWriter {
     }
 
     public void writeObjectAsXml(String docId, Object data, String... collections) throws IOException {
+//        docMgr.writeAs(docId, data);
         StringWriter stringWriter = new StringWriter();
         JAXB.marshal(data, stringWriter);
         writeXml(docId, stringWriter.toString(), collections);
